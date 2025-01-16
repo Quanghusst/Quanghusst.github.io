@@ -3,84 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuỗi Tách Dữ Liệu</title>
+    <link rel="icon" href="https://img.icons8.com/?size=100&id=gn5j3rcOh3hP&format=png&color=000000" type="image/x-icon">
+    <title>Tự động đăng ký lớp</title>
 </head>
 <body>
-    <h1>Nhập chuỗi số (có dấu phẩy phân cách)</h1>
-
-    <!-- Ô nhập liệu -->
-    <input type="text" id="userInput" placeholder="Nhập chuỗi như: 158444,158444,158444" />
-
-    <!-- Nút để xử lý -->
+    <h1>Nhập các mã lớp (có dấu phẩy phân cách)</h1>
+    <input type="text" id="userInput" placeholder="Ví dụ: 158444,158444,158444" />
     <button onclick="processInput()">Xử lý</button>
-
-    <!-- Khu vực hiển thị kết quả -->
     <h3>Kết quả:</h3>
-    <pre id="output"></pre>
-
-    <!-- Nút sao chép -->
+    <pre><code  id="output"></code></pre>
     <button onclick="copyToClipboard()">Sao chép mã JavaScript</button>
-
+    <hr>
+    <h1>Hướng dẫn</h1>
+    <p>Ở trang đăng ký F12 &#8594; console &#8594; paste code vừa copy vào là ok!!!</p>
     <script>
-        function processInput() {
-            // Lấy giá trị người dùng nhập vào
-            const userInput = document.getElementById('userInput').value;
-
-            // Tách chuỗi người dùng nhập vào bằng dấu phẩy
+        function processInput() {    
+            const userInput = document.getElementById('userInput').value;   
             const dataArray = userInput.split(',');
-
-            // Tạo mã JavaScript tương ứng
             const jsCode = `
-    const dataArray = ${JSON.stringify(dataArray)};  // Mảng được sinh ra từ Python
-    console.log("Data array: ${JSON.stringify(dataArray)}");
-
-    // Tìm ô input và nút submit (thay selector nếu cần)
-    const inputBox = document.querySelector('input'); // Thay bằng selector của ô input
-    const submitButton = document.querySelector('button'); // Thay bằng selector của nút submit
-
-    let currentIndex = 0;
-
-    // Hàm tự động điền chuỗi và nhấn nút
-    function autoFillAndClick() {
-        if (currentIndex < dataArray.length) {
-            // Điền chuỗi vào ô input
-            inputBox.value = dataArray[currentIndex];
-
-            // Nhấn nút
-            submitButton.click();
-
-            // In ra chuỗi đã điền
-            console.log(\`Submitted: \${dataArray[currentIndex]}\`);
-
-            // Chuyển sang chuỗi tiếp theo
-            currentIndex++;
-
-            // Gọi lại hàm sau 1 giây
-            setTimeout(autoFillAndClick, 1000);
-        } else {
-            console.log("All strings have been submitted.");
-        }
-    }
-    autoFillAndClick();
-`;
-
-            // Hiển thị mã JavaScript trên giao diện
+                const dataArray = ${JSON.stringify(dataArray)}; 
+                const inputBox = document.querySelector('#ctl00_ctl00_ASPxSplitter1_Content_ContentSplitter_MainContent_ASPxCallbackPanel1_tbDirectClassRegister_I'); 
+                const submitButton = document.querySelector('#ctl00_ctl00_ASPxSplitter1_Content_ContentSplitter_MainContent_ASPxCallbackPanel1_btDirectClassRegister'); 
+                let currentIndex = 0;
+                function autoFillAndClick() {
+                    if (currentIndex < dataArray.length) {            
+                        inputBox.value = dataArray[currentIndex];
+                        submitButton.click();            
+                        console.log(\`Submitted: \${dataArray[currentIndex]}\`);
+                        currentIndex++;
+                        setTimeout(autoFillAndClick, 3000);
+                    } else {
+                        console.log("All strings have been submitted.");
+                    }
+                }
+                autoFillAndClick();
+            `;
             document.getElementById('output').textContent = jsCode;
         }
 
         function copyToClipboard() {
-            // Lấy mã JavaScript từ phần tử output
             const outputText = document.getElementById('output').textContent;
-
-            // Tạo một textarea tạm để copy
             const textarea = document.createElement('textarea');
             textarea.value = outputText;
             document.body.appendChild(textarea);
             textarea.select();
             document.execCommand('copy');
             document.body.removeChild(textarea);
-
-            // Thông báo đã sao chép
             alert('Mã JavaScript đã được sao chép vào clipboard!');
         }
     </script>
