@@ -1,1 +1,2 @@
-# quanghusst.github.io
+# Usage 
+- Automatic javascirpt code ...
