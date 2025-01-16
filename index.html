@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuỗi Tách Dữ Liệu</title>
+</head>
+<body>
+    <h1>Nhập chuỗi số (có dấu phẩy phân cách)</h1>
+
+    <!-- Ô nhập liệu -->
+    <input type="text" id="userInput" placeholder="Nhập chuỗi như: 158444,158444,158444" />
+
+    <!-- Nút để xử lý -->
+    <button onclick="processInput()">Xử lý</button>
+
+    <!-- Khu vực hiển thị kết quả -->
+    <h3>Kết quả:</h3>
+    <pre id="output"></pre>
+
+    <!-- Nút sao chép -->
+    <button onclick="copyToClipboard()">Sao chép mã JavaScript</button>
+
+    <script>
+        function processInput() {
+            // Lấy giá trị người dùng nhập vào
+            const userInput = document.getElementById('userInput').value;
+
+            // Tách chuỗi người dùng nhập vào bằng dấu phẩy
+            const dataArray = userInput.split(',');
+
+            // Tạo mã JavaScript tương ứng
+            const jsCode = `
+    const dataArray = ${JSON.stringify(dataArray)};  // Mảng được sinh ra từ Python
+    console.log("Data array: ${JSON.stringify(dataArray)}");
+
+    // Tìm ô input và nút submit (thay selector nếu cần)
+    const inputBox = document.querySelector('input'); // Thay bằng selector của ô input
+    const submitButton = document.querySelector('button'); // Thay bằng selector của nút submit
+
+    let currentIndex = 0;
+
+    // Hàm tự động điền chuỗi và nhấn nút
+    function autoFillAndClick() {
+        if (currentIndex < dataArray.length) {
+            // Điền chuỗi vào ô input
+            inputBox.value = dataArray[currentIndex];
+
+            // Nhấn nút
+            submitButton.click();
+
+            // In ra chuỗi đã điền
+            console.log(\`Submitted: \${dataArray[currentIndex]}\`);
+
+            // Chuyển sang chuỗi tiếp theo
+            currentIndex++;
+
+            // Gọi lại hàm sau 1 giây
+            setTimeout(autoFillAndClick, 1000);
+        } else {
+            console.log("All strings have been submitted.");
+        }
+    }
+    autoFillAndClick();
+`;
+
+            // Hiển thị mã JavaScript trên giao diện
+            document.getElementById('output').textContent = jsCode;
+        }
+
+        function copyToClipboard() {
+            // Lấy mã JavaScript từ phần tử output
+            const outputText = document.getElementById('output').textContent;
+
+            // Tạo một textarea tạm để copy
+            const textarea = document.createElement('textarea');
+            textarea.value = outputText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            // Thông báo đã sao chép
+            alert('Mã JavaScript đã được sao chép vào clipboard!');
+        }
+    </script>
+</body>
+</html>
