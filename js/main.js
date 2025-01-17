@@ -4,6 +4,7 @@ function processInput() {
     const jsCode = `const dataArray = ${JSON.stringify(dataArray)}; 
 const inputBox = document.querySelector('#ctl00_ctl00_ASPxSplitter1_Content_ContentSplitter_MainContent_ASPxCallbackPanel1_tbDirectClassRegister_I'); 
 const submitButton = document.querySelector('#ctl00_ctl00_ASPxSplitter1_Content_ContentSplitter_MainContent_ASPxCallbackPanel1_btDirectClassRegister'); 
+// const statusString = document.querySelector('#ctl00_ctl00_ASPxSplitter1_Content_ContentSplitter_MainContent_ASPxCallbackPanel1_lbKQ'); 
 let currentIndex = 0;
 function autoFillAndClick() {
     if (currentIndex < dataArray.length) {            
@@ -11,7 +12,8 @@ function autoFillAndClick() {
         submitButton.click();            
         console.log(\`Submitted: \${dataArray[currentIndex]}\`);
         currentIndex++;
-        setTimeout(autoFillAndClick, 3000);
+        // console.log(statusString.innerText);
+        setTimeout(autoFillAndClick, 2000);
     } else {
         console.log("All strings have been submitted.");
     }
