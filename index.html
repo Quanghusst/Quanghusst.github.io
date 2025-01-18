@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mã Javascript tự động đăng ký lớp</title>
-    <link rel="icon" href="https://cdn.discordapp.com/attachments/1253996261854547989/1329820363634376774/ava_tron.png?ex=678bbb39&is=678a69b9&hm=f654e34950bed4c3ee40ac22fa9884df409fee1a4740e14e2dbd6ee73791859f&" type="image/png">
+    <link rel="icon"
+        href="https://cdn.discordapp.com/attachments/1253996261854547989/1329820363634376774/ava_tron.png?ex=678bbb39&is=678a69b9&hm=f654e34950bed4c3ee40ac22fa9884df409fee1a4740e14e2dbd6ee73791859f&"
+        type="image/png">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
     <!-- Thêm CSS của Prism.js -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    
+
     <link rel="stylesheet" href="./css/style.css">
 
 </head>
@@ -29,7 +31,7 @@
         <hr>
         <h3>Kết quả:</h3>
         <div class="code-container">
-            <button id="copyBtn" class="copy-btn" onclick="copyToClipboard()">Copy</button>
+            <button id="copyBtn" class="copy-btn" onclick="copyToClipboard()" data-copy-target="output">Copy</button>
             <pre><code id="output" class="language-javascript"></code></pre>
         </div>
     </div>
@@ -37,6 +39,68 @@
     <h1>Hướng dẫn</h1>
     <p>Ở trang đăng ký <a href="https://dk-sis.hust.edu.vn">dk-sis.hust.edu.vn</a> &#8594; nhấn F12 &#8594; Console
         &#8594; paste code vừa copy vào là ok!!!</p>
+    <hr>
+    <h1>Cách lấy mã lớp đã soạn</h1>
+    <details>
+        <summary>Web <a href="https://hungitb.github.io/tkb-hust/">https://hungitb.github.io/tkb-hust/</a></summary>
+        <ul>
+            <li>Bước 1: Bấm vào xem thông tin các lớp sau khi soạn xong thời khóa biểu mong muốn</li>
+            <li>Bước 2: Nhấn F12 &#8594; Console</li>
+            <li>Bước 3: Copy code này rồi paste vào Console của web soạn thời khóa biểu</li>
+            <div class="code-container">
+                <button id="copyBtn" class="copy-btn" onclick="copyToClipboard()" data-copy-target="hungitb">Copy</button>
+                <pre><code id="hungitb" class="language-javascript">const content = document.querySelector('.z3f').innerHTML;
+
+// Tìm tất cả "Mã lớp" bằng RegEx
+const classIds = content.match(/Mã lớp: (\d+)/g);
+
+// Lọc và lấy chỉ số ID (loại bỏ "Mã lớp: ")
+const classIdsCleaned = classIds.map(item => item.replace('Mã lớp: ', ''));
+
+// Chuyển mảng thành chuỗi, ngăn cách bởi dấu phẩy
+const classIdsString = classIdsCleaned.join(', ');
+
+// In ra danh sách mã lớp
+console.log(classIdsString);
+
+// (Tuỳ chọn) Hiển thị danh sách mã lớp ra giao diện
+const output = document.createElement('div');
+output.textContent = `Danh sách Mã lớp: ${classIdsString}`;
+document.body.appendChild(output);</code></pre>
+            </div>
+            <li>Bước 4: Copy mã lớp vừa lấy được vào ô nhập mã lớp của web này &#8594; Tạo code</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>Web <a href="https://hieupham2k1.web.app/time-table">https://hieupham2k1.web.app/time-table</a></summary>
+        <ul>
+            <li>Bước 1: Soạn thời khóa biểu như bình thường</li>
+            <li>Bước 2: Nhấn F12 &#8594; Console</li>
+            <li>Bước 3: Copy code này rồi paste vào Console của web soạn thời khóa biểu</li>
+            <div class="code-container">
+                <button id="copyBtn" class="copy-btn" onclick="copyToClipboard()"  data-copy-target="hieupham">Copy</button>
+                <pre><code id="hieupham" class="language-javascript">// Lấy tất cả các thẻ <b> có class "el-tooltip"
+const elements = document.querySelectorAll('b.el-tooltip');
+
+// Duyệt qua các thẻ và lấy nội dung text (mã lớp)
+const classIds = Array.from(elements).map(el => el.textContent.trim());
+
+// Chuyển mảng mã lớp thành chuỗi, cách nhau bởi dấu phẩy
+const classIdsString = classIds.join(', ');
+
+// In ra danh sách mã lớp
+console.log(classIdsString);
+
+// (Tuỳ chọn) Hiển thị danh sách mã lớp ra giao diện
+const output = document.createElement('div');
+output.textContent = `Danh sách Mã lớp: ${classIdsString}`;
+document.body.appendChild(output);</code></pre>
+            </div>
+            <li style="font-weight: normal;">Bước 4: Copy mã lớp vừa lấy được vào ô nhập mã lớp của web này &#8594; Tạo code</li>
+        </ul>
+    </details>
+
 
 
 

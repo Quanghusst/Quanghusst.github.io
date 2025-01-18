@@ -23,24 +23,26 @@ autoFillAndClick();`;
     document.getElementById('codeContainer').style.display = 'block';
     Prism.highlightAll()
 }
+// Lắng nghe sự kiện click cho tất cả các nút có lớp "copy-btn"
+document.querySelectorAll('.copy-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        // Lấy ID của phần tử cần sao chép từ thuộc tính data-copy-target
+        const targetId = this.getAttribute('data-copy-target');
+        const textToCopy = document.getElementById(targetId).textContent; // Lấy nội dung phần tử cần sao chép
 
-function copyToClipboard() {
-    const outputText = document.getElementById('output').textContent;
-    const copyBtn = document.getElementById('copyBtn');
-    const textarea = document.createElement('textarea');
-    textarea.value = outputText;
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textarea);
+        // Sử dụng Clipboard API để sao chép
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            // Thay đổi trạng thái của nút sau khi sao chép
+            this.textContent = "Copied"; // Thay đổi văn bản của nút thành "Copied"
+            this.classList.add("copied"); // Thêm class "copied" để thay đổi giao diện của nút
 
-    // Thay đổi trạng thái của nút sau khi sao chép
-    copyBtn.textContent = "Copied";
-    copyBtn.classList.add("copied");
-
-    // Đặt lại nút về trạng thái ban đầu sau 2 giây
-    setTimeout(() => {
-        copyBtn.textContent = "Copy";
-        copyBtn.classList.remove("copied");
-    }, 2000);
-}
+            // Đặt lại nút về trạng thái ban đầu sau 2 giây
+            setTimeout(() => {
+                this.textContent = "Copy"; // Đặt lại văn bản của nút thành "Copy"
+                this.classList.remove("copied"); // Xóa class "copied"
+            }, 2000);
+        }).catch(err => {
+            console.error("Unable to copy text: ", err); // Nếu có lỗi xảy ra, in lỗi ra console
+        });
+    });
+});
