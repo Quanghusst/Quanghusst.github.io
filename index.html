@@ -37,43 +37,38 @@
     </div>
     <hr>
     <h1>Hướng dẫn</h1>
-    <p>Ở trang đăng ký <a href="https://dk-sis.hust.edu.vn">dk-sis.hust.edu.vn</a> &#8594; nhấn F12 &#8594; Console
+    <p>Ở trang đăng ký <a href="https://dk-sis.hust.edu.vn" target="_blank">dk-sis.hust.edu.vn</a> &#8594; nhấn F12 &#8594; Console
         &#8594; paste code vừa copy vào là ok!!!</p>
     <hr>
     <h1>Cách lấy mã lớp đã soạn</h1>
     <details>
-        <summary>Web <a href="https://hungitb.github.io/tkb-hust/">https://hungitb.github.io/tkb-hust/</a></summary>
+        <summary>Web <a href="https://hungitb.github.io/tkb-hust/" target="_blank">https://hungitb.github.io/tkb-hust/</a></summary>
         <ul>
-            <li>Bước 1: Bấm vào xem thông tin các lớp sau khi soạn xong thời khóa biểu mong muốn</li>
+            <li>Bước 1: Soạn thời khóa biểu như bình thường</li>
             <li>Bước 2: Nhấn F12 &#8594; Console</li>
             <li>Bước 3: Copy code này rồi paste vào Console của web soạn thời khóa biểu</li>
             <div class="code-container">
                 <button id="copyBtn" class="copy-btn" onclick="copyToClipboard()" data-copy-target="hungitb">Copy</button>
-                <pre><code id="hungitb" class="language-javascript">const content = document.querySelector('.z3f').innerHTML;
+                <pre><code id="hungitb" class="language-javascript">// Lấy tất cả các phần tử có class "h53"
+const elements = document.querySelectorAll('.h53');
 
-// Tìm tất cả "Mã lớp" bằng RegEx
-const classIds = content.match(/Mã lớp: (\d+)/g);
+// Lấy giá trị trực tiếp (bỏ qua thẻ con) từ tất cả các phần tử
+const values = Array.from(elements).map(element => 
+    Array.from(element.childNodes)
+    .filter(node => node.nodeType === Node.TEXT_NODE) // Chỉ lấy nút văn bản
+    .map(node => node.textContent.trim())
+    .join('') // Kết hợp các đoạn văn bản lại
+);
 
-// Lọc và lấy chỉ số ID (loại bỏ "Mã lớp: ")
-const classIdsCleaned = classIds.map(item => item.replace('Mã lớp: ', ''));
-
-// Chuyển mảng thành chuỗi, ngăn cách bởi dấu phẩy
-const classIdsString = classIdsCleaned.join(', ');
-
-// In ra danh sách mã lớp
-console.log(classIdsString);
-
-// (Tuỳ chọn) Hiển thị danh sách mã lớp ra giao diện
-const output = document.createElement('div');
-output.textContent = `Danh sách Mã lớp: ${classIdsString}`;
-document.body.appendChild(output);</code></pre>
+// In ra tất cả giá trị
+console.log(values.join(', '));</code></pre>
             </div>
             <li>Bước 4: Copy mã lớp vừa lấy được vào ô nhập mã lớp của web này &#8594; Tạo code</li>
         </ul>
     </details>
 
     <details>
-        <summary>Web <a href="https://hieupham2k1.web.app/time-table">https://hieupham2k1.web.app/time-table</a></summary>
+        <summary>Web <a href="https://hieupham2k1.web.app/time-table" target="_blank">https://hieupham2k1.web.app/time-table</a></summary>
         <ul>
             <li>Bước 1: Soạn thời khóa biểu như bình thường</li>
             <li>Bước 2: Nhấn F12 &#8594; Console</li>
@@ -86,16 +81,10 @@ const elements = document.querySelectorAll('b.el-tooltip');
 // Duyệt qua các thẻ và lấy nội dung text (mã lớp)
 const classIds = Array.from(elements).map(el => el.textContent.trim());
 
-// Chuyển mảng mã lớp thành chuỗi, cách nhau bởi dấu phẩy
-const classIdsString = classIds.join(', ');
+const uniqueValues = [...new Set(classIds)];
 
 // In ra danh sách mã lớp
-console.log(classIdsString);
-
-// (Tuỳ chọn) Hiển thị danh sách mã lớp ra giao diện
-const output = document.createElement('div');
-output.textContent = `Danh sách Mã lớp: ${classIdsString}`;
-document.body.appendChild(output);</code></pre>
+console.log(uniqueValues.join(', '));</code></pre>
             </div>
             <li style="font-weight: normal;">Bước 4: Copy mã lớp vừa lấy được vào ô nhập mã lớp của web này &#8594; Tạo code</li>
         </ul>
