@@ -1,77 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mã Javascript tự động đăng ký lớp</title>
-    <link rel="icon"
-        href="https://cdn.discordapp.com/attachments/1253996261854547989/1329820363634376774/ava_tron.png?ex=678bbb39&is=678a69b9&hm=f654e34950bed4c3ee40ac22fa9884df409fee1a4740e14e2dbd6ee73791859f&"
-        type="image/png">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <!-- Thêm CSS của Prism.js -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <!-- cSS bình thường -->
+    <title>Count GPA</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon"
+        href="https://media.discordapp.net/attachments/1253996261854547989/1329820363634376774/ava_tron.png?ex=67b29f79&is=67b14df9&hm=6040dfc1ae9d8ca44ce1e6bf2736a69917726c5d1a0e41d66d166101feb8272d&=&format=webp&quality=lossless&width=594&height=594"
+        type="image/png">
 </head>
-<body>
-    <h1>Nhập các mã lớp (có dấu phẩy phân cách)</h1>
-    <div class="input-group mb-3">
-        <input type="text" id="userInput" placeholder="Ví dụ: 158444,158444,158444" class="form-control"
-            placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-    </div>
-    <button onclick="processInput()" type="button" class="btn btn-warning">Tạo code</button>
 
-    <div class="result" id="codeContainer">
-        <hr>
-        <h3>Kết quả:</h3>
-        <div class="code-container">
-            <button id="copyBtn" class="copy-btn" onclick="copyToClipboard()" data-copy-target="output">Copy</button>
-            <pre><code id="output" class="language-javascript"></code></pre>
-        </div>
-    </div>
-    <hr>
-    <h1>Hướng dẫn</h1>
-    <p>Ở trang đăng ký <a href="https://dk-sis.hust.edu.vn" target="_blank">dk-sis.hust.edu.vn</a> &#8594; nhấn F12 &#8594; Console
-        &#8594; paste code vừa copy vào là ok!!!</p>
-    <hr>
-    <h1>Cách lấy mã lớp đã soạn</h1>
-    <details>
-        <summary>Web <a href="https://hungitb.github.io/tkb-hust/" target="_blank">https://hungitb.github.io/tkb-hust/</a></summary>
-        <ul>
-            <li>Bước 1: Soạn thời khóa biểu như bình thường</li>
-            <li>Bước 2: Nhấn F12 &#8594; Console</li>
-            <li>Bước 3: Copy code này rồi paste vào Console của web soạn thời khóa biểu</li>
-            <div class="code-container">
-                <button id="copyBtn" class="copy-btn" onclick="copyToClipboard()" data-copy-target="hungitb">Copy</button>
-                <pre><code id="hungitb" class="language-javascript">javascript: (function () {const elements = document.querySelectorAll('.h53');const values = Array.from(elements).map(element => Array.from(element.childNodes) .filter(node => node.nodeType === Node.TEXT_NODE) .map(node => node.textContent.trim()) .join('') ); var text = values.join(','); var textArea = document.createElement("textarea"); textArea.value = text; document.body.appendChild(textArea); textArea.select(); try { document.execCommand('copy'); document.body.removeChild(textArea); alert("ĐÃ COPY CÁC MÃ LỚP: " + text); } catch (err) { alert("Error copying text: " + err); } })();</code></pre>
-            </div>
-            <li>Bước 4: Copy mã lớp vừa lấy được vào ô nhập mã lớp của web này &#8594; Tạo code</li>
-        </ul>
-    </details>
-    <details>
-        <summary>Web <a href="https://hieupham2k1.web.app/time-table" target="_blank">https://hieupham2k1.web.app/time-table</a></summary>
-        <ul>
-            <li>Bước 1: Soạn thời khóa biểu như bình thường</li>
-            <li>Bước 2: Nhấn F12 &#8594; Console</li>
-            <li>Bước 3: Copy code này rồi paste vào Console của web soạn thời khóa biểu</li>
-            <div class="code-container">
-                <button id="copyBtn" class="copy-btn" onclick="copyToClipboard()"  data-copy-target="hieupham">Copy</button>
-                <pre><code id="hieupham" class="language-javascript">javascript: (function () { const elements = document.querySelectorAll('b.el-tooltip'); const classIds = Array.from(elements).map(el => el.textContent.trim()); const uniqueValues = [...new Set(classIds)]; var text = uniqueValues.join(','); var textArea = document.createElement("textarea"); textArea.value = text; document.body.appendChild(textArea); textArea.select(); try { document.execCommand('copy'); document.body.removeChild(textArea); alert("ĐÃ COPY CÁC MÃ LỚP: " + text); } catch (err) { alert("Error copying text: " + err); } })();</code></pre>
-            </div>
-            <li style="font-weight: normal;">Bước 4: Copy mã lớp vừa lấy được vào ô nhập mã lớp của web này &#8594; Tạo code</li>
-        </ul>
-    </details>
+<body>
+    <h2>Nhập Dữ Liệu Học Phần <a href="https://dt-ctt.hust.edu.vn/Students/CoursesRegister.aspx" target="_blank">(copy
+            các môn kỳ này)</a> (hoặc không cần)</h2>
+    <textarea id="inputData" placeholder="Nhập dữ liệu vào đây..."></textarea>
+    <br>
+    <button onclick="processData()">Hiển thị</button>
+
+    <h2>Dữ Liệu Học Phần</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Mã Học Phần</th>
+                <th>Tên Học Phần</th>
+                <th>Số Tín Chỉ</th>
+                <th>Trọng số QT</th>
+                <th>QT</th>
+                <th>CK</th>
+                <th>Đổi điểm hệ 10</th>
+                <th>Đổi điểm chữ</th>
+                <th>Đổi điểm hệ 4</th>
+                <th>Xóa</th>
+            </tr>
+        </thead>
+        <tbody id="outputTable">
+        </tbody>
+        <tfoot>
+            <tr class="add-row" onclick="addEmptyRow()">
+                <td colspan="10">+ THÊM HÀNG</td>
+            </tr>
+        </tfoot>
+    </table>
+    <h3>Tổng số tín: <span id="totalCredits">0</span></h3>
+    <h3>GPA: <span id="gpa">0.00</span></h3>
+    <script src="./js/main.js"></script>
+
 </body>
-<script src="js/main.js"></script>
-<!-- Thêm thư viện Prism.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-javascript.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-    crossorigin="anonymous"></script>
+
 </html>
